@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-// import { v4 as uuid } from "uuid";
+import { v4 as uuid } from "uuid";
 
 import Input from "../Input";
 import Button from "../Button";
 
 function addProductDetails(product) {
   return {
-    id: this.uuid(),
+    id: uuid(),
     ...product,
     quantity: 0,
     isFavorite: false,
@@ -23,7 +23,7 @@ function addProductDetails(product) {
       },
     },
     author: {
-      id: this.uuid(),
+      id: uuid(),
       ...product.author,
     },
   };
@@ -47,38 +47,86 @@ class NewProductForm extends Component {
       },
       errors: {},
     };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleTitleInputChange = this.handleTitleInputChange.bind(this);
+    this.handlePriceInputChange = this.handlePriceInputChange.bind(this);
+    this.handleImgInputChange = this.handleImgInputChange.bind(this);
+    this.handleShortDescriptionInputChange = this.handleShortDescriptionInputChange.bind(
+      this,
+    );
+    this.handleLongDescriptionInputChange = this.handleLongDescriptionInputChange.bind(
+      this,
+    );
+    this.handleUnitsInStockInputChange = this.handleUnitsInStockInputChange.bind(
+      this,
+    );
+    this.handleAuthorFirstNameInputChange = this.handleAuthorFirstNameInputChange.bind(
+      this,
+    );
+    this.handleAuthorLastNameInputChange = this.handleAuthorLastNameInputChange.bind(
+      this,
+    );
+    this.handleAuthorEmailInputChange = this.handleAuthorEmailInputChange.bind(
+      this,
+    );
   }
 
-  handleSubmit() {
-    const { ...newProduct } = this.state;
-    this.saveNewProduct(...newProduct);
-    addProductDetails(...newProduct);
+  handleSubmit(event) {
+    event.preventDefault();
+    const { errors, ...newProduct } = this.state;
+    const { saveNewProduct } = this.props;
+    saveNewProduct(addProductDetails(newProduct));
   }
-  /*
+
   handleTitleInputChange(event) {
-    // eslint-disable-next-line
-   return this.
+    this.setState({ title: event.target.value });
   }
-  */
 
-  // handlePriceInputChange() {}
+  handlePriceInputChange(event) {
+    this.setState({ price: event.target.value });
+  }
 
-  // handleImgInputChange() {}
+  handleImgInputChange(event) {
+    this.setState({ img: event.target.value });
+  }
 
-  // handleShortDescriptionInputChange() {}
+  handleShortDescriptionInputChange(event) {
+    this.setState({ shortDescription: event.target.value });
+  }
 
-  // handleLongDescriptionInputChange() {}
+  handleLongDescriptionInputChange(event) {
+    this.setState({ longDescription: event.target.value });
+  }
 
-  // handleUnitsInStockInputChange() {}
+  handleUnitsInStockInputChange(event) {
+    this.setState({ unitsInStock: event.target.value });
+  }
 
-  // handleAuthorFirstNameInputChange() {}
+  handleAuthorFirstNameInputChange(event) {
+    const { author } = this.state;
+    author.firstName = event.target.value;
+    this.setState({ author: author });
+    // eslint-disable-next-line
+    console.log(author.firstName);
+  }
 
-  // handleAuthorLastNameInputChange() {}
+  handleAuthorLastNameInputChange(event) {
+    const { author } = this.state;
+    author.lastName = event.target.value;
+    this.setState({ author: author });
+    // eslint-disable-next-line
+    console.log(author.lastName);
+  }
 
-  // handleAuthorEmailInputChange() {}
+  handleAuthorEmailInputChange(event) {
+    const { author } = this.state;
+    author.email = event.target.value;
+    this.setState({ author: author });
+    // eslint-disable-next-line
+    console.log(author.email);
+  }
 
   render() {
-    /*
     const {
       title,
       price,
@@ -88,7 +136,6 @@ class NewProductForm extends Component {
       unitsInStock,
       author,
     } = this.state;
-    */
 
     const { toggleNewProductForm } = this.props;
 
@@ -108,18 +155,59 @@ class NewProductForm extends Component {
         <div className="col col-10">
           <form onSubmit={this.handleSubmit}>
             <Input
+              value={title}
               handleChange={this.handleTitleInputChange}
               type="text"
               label="Product title: "
             />
-            <Input type="number" label="Price: " />
-            <Input type="file" label="Image: " />
-            <Input type="textarea" label="Short Description: " />
-            <Input type="textarea" label="Long Description" />
-            <Input type="number" label="Units in stock" />
-            <Input type="text" label="Name" />
-            <Input type="text" label="Last Name" />
-            <Input type="email" label="Product title" />
+            <Input
+              value={price}
+              handleChange={this.handlePriceInputChange}
+              type="number"
+              label="Price: "
+            />
+            <Input
+              value={img}
+              handleChange={this.handleImgInputChange}
+              type="file"
+              label="Image: "
+            />
+            <Input
+              value={shortDescription}
+              handleChange={this.handleShortDescriptionInputChange}
+              type="textarea"
+              label="Short Description: "
+            />
+            <Input
+              value={longDescription}
+              handleChange={this.handleLongDescriptionInputChange}
+              type="textarea"
+              label="Long Description"
+            />
+            <Input
+              value={unitsInStock}
+              handleChange={this.handleUnitsInStockInputChange}
+              type="number"
+              label="Units in stock"
+            />
+            <Input
+              value={author.firstName}
+              handleChange={this.handleAuthorFirstNameInputChange}
+              type="text"
+              label="First Name"
+            />
+            <Input
+              value={author.lastName}
+              handleChange={this.handleAuthorLastNameInputChange}
+              type="text"
+              label="Last Name"
+            />
+            <Input
+              value={author.email}
+              handleChange={this.handleAuthorEmailInputChange}
+              type="email"
+              label="Email "
+            />
 
             <Button submitButton block>
               Submit

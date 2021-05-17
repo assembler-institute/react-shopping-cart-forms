@@ -227,8 +227,6 @@ class App extends Component {
       products: products,
       newProductFormOpen: false,
     });
-    // eslint-disable-next-line
-    console.log(products);
   }
 
   toggleNewProductForm() {
