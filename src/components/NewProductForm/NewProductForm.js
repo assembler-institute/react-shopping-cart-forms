@@ -1,51 +1,65 @@
 import React, { Component } from "react";
 // import { v4 as uuid } from "uuid";
 
-// import Input from "../Input";
+import Input from "../Input";
 import Button from "../Button";
 
-// function addProductDetails(product) {
-//   return {
-//     id: uuid(),
-//     ...product,
-//     quantity: 0,
-//     isFavorite: false,
-//     createdAt: new Date().toISOString(),
-//     updatedAt: new Date().toISOString(),
-//     votes: {
-//       upVotes: {
-//         upperLimit: 10,
-//         currentValue: 0,
-//       },
-//       downVotes: {
-//         lowerLimit: 10,
-//         currentValue: 0,
-//       },
-//     },
-//     author: {
-//       id: uuid(),
-//       ...product.author,
-//     },
-//   };
-// }
+function addProductDetails(product) {
+  return {
+    id: this.uuid(),
+    ...product,
+    quantity: 0,
+    isFavorite: false,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    votes: {
+      upVotes: {
+        upperLimit: 10,
+        currentValue: 0,
+      },
+      downVotes: {
+        lowerLimit: 10,
+        currentValue: 0,
+      },
+    },
+    author: {
+      id: this.uuid(),
+      ...product.author,
+    },
+  };
+}
 
 class NewProductForm extends Component {
-  //     title: "",
-  //     price: 0,
-  //     img: "",
-  //     shortDescription: "",
-  //     longDescription: "",
-  //     unitsInStock: 0,
-  //     author: {
-  //       firstName: "",
-  //       lastName: "",
-  //       email: "",
-  //     },
-  //     errors: {},
+  constructor(props) {
+    super(props);
 
-  // handleSubmit() {}
+    this.state = {
+      title: "",
+      price: 0,
+      img: "",
+      shortDescription: "",
+      longDescription: "",
+      unitsInStock: 0,
+      author: {
+        firstName: "",
+        lastName: "",
+        email: "",
+      },
+      errors: {},
+    };
+  }
 
-  // handleTitleInputChange() {}
+  handleSubmit() {
+    const { ...newProduct } = this.state;
+    this.saveNewProduct(...newProduct);
+    addProductDetails(...newProduct);
+  }
+  /*
+  handleTitleInputChange(event) {
+    // eslint-disable-next-line
+   return this.
+  }
+  */
 
   // handlePriceInputChange() {}
 
@@ -64,9 +78,17 @@ class NewProductForm extends Component {
   // handleAuthorEmailInputChange() {}
 
   render() {
-    // const {
-    // ...
-    // } = this.state;
+    /*
+    const {
+      title,
+      price,
+      img,
+      shortDescription,
+      longDescription,
+      unitsInStock,
+      author,
+    } = this.state;
+    */
 
     const { toggleNewProductForm } = this.props;
 
@@ -85,11 +107,19 @@ class NewProductForm extends Component {
         </div>
         <div className="col col-10">
           <form onSubmit={this.handleSubmit}>
-            {/* <Input
+            <Input
+              handleChange={this.handleTitleInputChange}
               type="text"
-              label="Product title"
-              ...
-            /> */}
+              label="Product title: "
+            />
+            <Input type="number" label="Price: " />
+            <Input type="file" label="Image: " />
+            <Input type="textarea" label="Short Description: " />
+            <Input type="textarea" label="Long Description" />
+            <Input type="number" label="Units in stock" />
+            <Input type="text" label="Name" />
+            <Input type="text" label="Last Name" />
+            <Input type="email" label="Product title" />
 
             <Button submitButton block>
               Submit
