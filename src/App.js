@@ -56,7 +56,7 @@ class App extends Component {
     this.handleDownVote = this.handleDownVote.bind(this);
     this.handleUpVote = this.handleUpVote.bind(this);
     this.handleSetFavorite = this.handleSetFavorite.bind(this);
-    // this.saveNewProduct = this.saveNewProduct.bind(this);
+    this.saveNewProduct = this.saveNewProduct.bind(this);
     this.toggleNewProductForm = this.toggleNewProductForm.bind(this);
   }
 
@@ -220,7 +220,17 @@ class App extends Component {
     this.setState({ products: updatedProducts });
   }
 
-  // saveNewProduct(newProduct) {}
+  saveNewProduct(newProduct) {
+    const { products, newProductFormOpen } = this.state;
+
+    const updatedProducts = [newProduct, ...products];
+    const updatedNewProductFormOpen = !newProductFormOpen;
+
+    this.setState({
+      products: updatedProducts,
+      newProductFormOpen: updatedNewProductFormOpen,
+    });
+  }
 
   toggleNewProductForm() {
     this.setState((prevState) => ({
@@ -252,7 +262,7 @@ class App extends Component {
         handleRemove={this.handleRemove}
         handleChange={this.handleChange}
         newProductFormOpen={newProductFormOpen}
-        // saveNewProduct={this.saveNewProduct}
+        saveNewProduct={this.saveNewProduct}
         toggleNewProductForm={this.toggleNewProductForm}
       />
     );
