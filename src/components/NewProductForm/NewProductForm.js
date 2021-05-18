@@ -1,72 +1,158 @@
 import React, { Component } from "react";
-// import { v4 as uuid } from "uuid";
+import { v4 as uuid } from "uuid";
 
-// import Input from "../Input";
+import Input from "../Input";
 import Button from "../Button";
 
-// function addProductDetails(product) {
-//   return {
-//     id: uuid(),
-//     ...product,
-//     quantity: 0,
-//     isFavorite: false,
-//     createdAt: new Date().toISOString(),
-//     updatedAt: new Date().toISOString(),
-//     votes: {
-//       upVotes: {
-//         upperLimit: 10,
-//         currentValue: 0,
-//       },
-//       downVotes: {
-//         lowerLimit: 10,
-//         currentValue: 0,
-//       },
-//     },
-//     author: {
-//       id: uuid(),
-//       ...product.author,
-//     },
-//   };
-// }
+function addProductDetails(product) {
+  return {
+    id: uuid(),
+    ...product,
+    quantity: 0,
+    isFavorite: false,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    votes: {
+      upVotes: {
+        upperLimit: 10,
+        currentValue: 0,
+      },
+      downVotes: {
+        lowerLimit: 10,
+        currentValue: 0,
+      },
+    },
+    author: {
+      id: uuid(),
+      ...product.author,
+    },
+  };
+}
 
 class NewProductForm extends Component {
-  //     title: "",
-  //     price: 0,
-  //     img: "",
-  //     shortDescription: "",
-  //     longDescription: "",
-  //     unitsInStock: 0,
-  //     author: {
-  //       firstName: "",
-  //       lastName: "",
-  //       email: "",
-  //     },
-  //     errors: {},
+  constructor(props) {
+    super(props);
 
-  // handleSubmit() {}
+    this.state = {
+      title: "",
+      price: 0,
+      img: "",
+      shortDescription: "",
+      longDescription: "",
+      unitsInStock: 0,
+      author: {
+        firstName: "",
+        lastName: "",
+        email: "",
+      },
+      // errors: {},
+    };
 
-  // handleTitleInputChange() {}
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleTitleInputChange = this.handleTitleInputChange.bind(this);
+    this.handlePriceInputChange = this.handlePriceInputChange.bind(this);
+    this.handleImgInputChange = this.handleImgInputChange.bind(this);
+    this.handleShortDescriptionInputChange = this.handleShortDescriptionInputChange.bind(
+      this,
+    );
+    this.handleLongDescriptionInputChange = this.handleLongDescriptionInputChange.bind(
+      this,
+    );
+    this.handleUnitsInStockInputChange = this.handleUnitsInStockInputChange.bind(
+      this,
+    );
+    this.handleAuthorFirstNameInputChange = this.handleAuthorFirstNameInputChange.bind(
+      this,
+    );
+    this.handleAuthorLastNameInputChange = this.handleAuthorLastNameInputChange.bind(
+      this,
+    );
+    this.handleAuthorEmailInputChange = this.handleAuthorEmailInputChange.bind(
+      this,
+    );
+  }
 
-  // handlePriceInputChange() {}
+  handleSubmit(event) {
+    event.preventDefault();
 
-  // handleImgInputChange() {}
+    const { saveNewProduct } = this.props;
+    saveNewProduct(addProductDetails(this.state));
+  }
 
-  // handleShortDescriptionInputChange() {}
+  handleTitleInputChange(event) {
+    this.setState({
+      title: event.target.value,
+    });
+  }
 
-  // handleLongDescriptionInputChange() {}
+  handlePriceInputChange(event) {
+    this.setState({
+      price: Number(event.target.value),
+    });
+  }
 
-  // handleUnitsInStockInputChange() {}
+  handleImgInputChange(event) {
+    this.setState({
+      img: event.target.value,
+    });
+  }
 
-  // handleAuthorFirstNameInputChange() {}
+  handleShortDescriptionInputChange(event) {
+    this.setState({
+      shortDescription: event.target.value,
+    });
+  }
 
-  // handleAuthorLastNameInputChange() {}
+  handleLongDescriptionInputChange(event) {
+    this.setState({
+      longDescription: event.target.value,
+    });
+  }
 
-  // handleAuthorEmailInputChange() {}
+  handleUnitsInStockInputChange(event) {
+    this.setState({
+      unitsInStock: Number(event.target.value),
+    });
+  }
+
+  handleAuthorFirstNameInputChange(event) {
+    this.setState((prevState) => ({
+      author: {
+        ...prevState.author,
+        firstName: event.target.value,
+      },
+    }));
+  }
+
+  handleAuthorLastNameInputChange(event) {
+    this.setState((prevState) => ({
+      author: {
+        ...prevState.author,
+        lastName: event.target.value,
+      },
+    }));
+  }
+
+  handleAuthorEmailInputChange(event) {
+    this.setState((prevState) => ({
+      author: {
+        ...prevState.author,
+        email: event.target.value,
+      },
+    }));
+  }
 
   render() {
-    // const {
-    // ...
-    // } = this.state;
+    const {
+      title,
+      price,
+      img,
+      shortDescription,
+      longDescription,
+      unitsInStock,
+      author,
+      // errors,
+    } = this.state;
 
     const { toggleNewProductForm } = this.props;
 
@@ -85,13 +171,78 @@ class NewProductForm extends Component {
         </div>
         <div className="col col-10">
           <form onSubmit={this.handleSubmit}>
-            {/* <Input
+            <Input
               type="text"
               label="Product title"
-              ...
-            /> */}
+              value={title}
+              id="productTitle"
+              placeholder="Zapatilla..."
+              handleChange={this.handleTitleInputChange}
+            />
+            <Input
+              type="number"
+              label="Price"
+              id="productPrice"
+              value={price}
+              handleChange={this.handlePriceInputChange}
+            />
+            <Input
+              type="text"
+              label="Img"
+              value={img}
+              id="productImg"
+              placeholder="Introduce una url..."
+              handleChange={this.handleImgInputChange}
+            />
+            <Input
+              type="text"
+              label="Short Description"
+              value={shortDescription}
+              id="productShortDescription"
+              placeholder="Introduce una breve descripción"
+              handleChange={this.handleShortDescriptionInputChange}
+            />
+            <Input
+              type="text"
+              label="Long Description"
+              value={longDescription}
+              id="productLongDescription"
+              placeholder="Introduce una descripción más detallada"
+              handleChange={this.handleLongDescriptionInputChange}
+            />
+            <Input
+              type="number"
+              label="Units In Stock"
+              value={unitsInStock}
+              id="productUnitsStock"
+              handleChange={this.handleUnitsInStockInputChange}
+            />
+            <Input
+              type="text"
+              label="FirstName"
+              value={author.firstName}
+              id="productFirstName"
+              placeholder="Introduce tu nombre de pila"
+              handleChange={this.handleAuthorFirstNameInputChange}
+            />
+            <Input
+              type="text"
+              label="LastName"
+              value={author.lastName}
+              id="productLastName"
+              placeholder="Introduce tu primero apellido"
+              handleChange={this.handleAuthorLastNameInputChange}
+            />
+            <Input
+              type="text"
+              label="Email"
+              value={author.email}
+              id="productEmail"
+              placeholder="Introduce un email válido"
+              handleChange={this.handleAuthorEmailInputChange}
+            />
 
-            <Button submitButton block>
+            <Button type="submit" submitButton block>
               Submit
             </Button>
           </form>
