@@ -1,72 +1,97 @@
 import React, { Component } from "react";
-// import { v4 as uuid } from "uuid";
+import { v4 as uuid } from "uuid";
 
-// import Input from "../Input";
+import Input from "../Input";
 import Button from "../Button";
 
-// function addProductDetails(product) {
-//   return {
-//     id: uuid(),
-//     ...product,
-//     quantity: 0,
-//     isFavorite: false,
-//     createdAt: new Date().toISOString(),
-//     updatedAt: new Date().toISOString(),
-//     votes: {
-//       upVotes: {
-//         upperLimit: 10,
-//         currentValue: 0,
-//       },
-//       downVotes: {
-//         lowerLimit: 10,
-//         currentValue: 0,
-//       },
-//     },
-//     author: {
-//       id: uuid(),
-//       ...product.author,
-//     },
-//   };
-// }
+function addProductDetails(product) {
+  return {
+    id: uuid(),
+    ...product,
+    quantity: 0,
+    isFavorite: false,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    votes: {
+      upVotes: {
+        upperLimit: 10,
+        currentValue: 0,
+      },
+      downVotes: {
+        lowerLimit: 10,
+        currentValue: 0,
+      },
+    },
+    author: {
+      id: uuid(),
+      ...product.author,
+    },
+  };
+}
 
 class NewProductForm extends Component {
-  //     title: "",
-  //     price: 0,
-  //     img: "",
-  //     shortDescription: "",
-  //     longDescription: "",
-  //     unitsInStock: 0,
-  //     author: {
-  //       firstName: "",
-  //       lastName: "",
-  //       email: "",
-  //     },
-  //     errors: {},
+  constructor(props) {
+    super(props);
 
-  // handleSubmit() {}
+    this.state = {
+      title: "",
+      price: 0,
+      img: "",
+      shortDescription: "",
+      longDescription: "",
+      unitsInStock: 0,
+      author: {
+        firstName: "",
+        lastName: "",
+        email: "",
+      },
+      errors: {},
+    };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleTextChange = this.handleTextChange.bind(this);
+    this.handleNumberChange = this.handleNumberChange.bind(this);
+    this.handleAuthorChange = this.handleAuthorChange.bind(this);
+  }
 
-  // handleTitleInputChange() {}
+  handleSubmit(event) {
+    event.preventDefault();
+    const { saveNewProduct } = this.props;
+    const { errors: _errors, ...productData } = this.state;
+    const newProduct = addProductDetails(productData);
+    saveNewProduct(newProduct);
+  }
 
-  // handlePriceInputChange() {}
+  handleTextChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+  }
 
-  // handleImgInputChange() {}
+  handleNumberChange(event) {
+    this.setState({
+      [event.target.name]: Number(event.target.value),
+    });
+  }
 
-  // handleShortDescriptionInputChange() {}
-
-  // handleLongDescriptionInputChange() {}
-
-  // handleUnitsInStockInputChange() {}
-
-  // handleAuthorFirstNameInputChange() {}
-
-  // handleAuthorLastNameInputChange() {}
-
-  // handleAuthorEmailInputChange() {}
+  handleAuthorChange(event) {
+    this.setState((prevState) => ({
+      author: {
+        ...prevState.author,
+        [event.target.name]: event.target.value,
+      },
+    }));
+  }
 
   render() {
-    // const {
-    // ...
-    // } = this.state;
+    const {
+      title,
+      price,
+      img,
+      shortDescription,
+      longDescription,
+      unitsInStock,
+      author,
+    } = this.state;
 
     const { toggleNewProductForm } = this.props;
 
@@ -85,12 +110,78 @@ class NewProductForm extends Component {
         </div>
         <div className="col col-10">
           <form onSubmit={this.handleSubmit}>
-            {/* <Input
+            <Input
               type="text"
-              label="Product title"
-              ...
-            /> */}
-
+              label="Product Title"
+              id="title"
+              name="title"
+              value={title}
+              onChange={this.handleTextChange}
+            />
+            <Input
+              type="number"
+              label="Product Price"
+              id="price"
+              name="price"
+              value={price}
+              onChange={this.handleNumberChange}
+            />
+            <Input
+              type="text"
+              label="Product Image"
+              id="img"
+              name="img"
+              value={img}
+              onChange={this.handleTextChange}
+            />
+            <Input
+              type="text"
+              label="Product Short Description"
+              id="shortDescription"
+              name="shortDescription"
+              value={shortDescription}
+              handleChange={this.handleTextChange}
+            />
+            <Input
+              type="text"
+              label="Product Long Description"
+              id="longDescription"
+              name="longDescription"
+              value={longDescription}
+              handleChange={this.handleTextChange}
+            />
+            <Input
+              type="number"
+              label="Product Units in Stock"
+              id="unitsInStock"
+              name="unitsInStock"
+              value={unitsInStock}
+              handleChange={this.handleNumberChange}
+            />
+            <Input
+              type="text"
+              label="Product Author First Name"
+              id="firstName"
+              name="firstName"
+              value={author.firstName}
+              handleChange={this.handleAuthorChange}
+            />
+            <Input
+              type="text"
+              label="Product Author Last Name"
+              id="lastName"
+              name="lastName"
+              value={author.lastName}
+              handleChange={this.handleAuthorChange}
+            />
+            <Input
+              type="text"
+              label="Product Author Email"
+              id="email"
+              name="email"
+              value={author.email}
+              handleChange={this.handleAuthorChange}
+            />
             <Button submitButton block>
               Submit
             </Button>
