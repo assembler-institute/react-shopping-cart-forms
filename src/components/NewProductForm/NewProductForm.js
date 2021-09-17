@@ -46,26 +46,78 @@ class NewProductForm extends Component {
       },
       errors: {},
     };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleTitleInputChange = this.handleTitleInputChange.bind(this);
+    this.handlePriceInputChange = this.handlePriceInputChange.bind(this);
+    this.handleImgInputChange = this.handleImgInputChange.bind(this);
+    this.handleShortDescriptionInputChange = this.handleShortDescriptionInputChange.bind(
+      this,
+    );
+    this.handleLongDescriptionInputChange = this.handleLongDescriptionInputChange.bind(
+      this,
+    );
+    this.handleUnitsInStockInputChange = this.handleUnitsInStockInputChange.bind(
+      this,
+    );
+    this.handleAuthorFirstNameInputChange = this.handleAuthorFirstNameInputChange.bind(
+      this,
+    );
+    this.handleAuthorLastNameInputChange = this.handleAuthorEmailInputChange.bind(
+      this,
+    );
   }
   handleSubmit() {}
 
-  handleTitleInputChange() {}
+  handleTitleInputChange(event) {
+    this.setState({ title: event.target.value });
+  }
 
-  handlePriceInputChange() {}
+  handlePriceInputChange(event) {
+    this.setState({ price: Number(event.target.value) });
+  }
 
-  handleImgInputChange() {}
+  handleImgInputChange(event) {
+    this.setState({ img: event.target.value });
+  }
 
-  handleShortDescriptionInputChange() {}
+  handleShortDescriptionInputChange(event) {
+    this.setState({ shortDescription: event.target.value });
+  }
 
-  handleLongDescriptionInputChange() {}
+  handleLongDescriptionInputChange(event) {
+    this.setState({ longDescription: event.target.value });
+  }
 
-  handleUnitsInStockInputChange() {}
+  handleUnitsInStockInputChange(event) {
+    this.setState({ unitsInStock: Number(event.target.value) });
+  }
 
-  handleAuthorFirstNameInputChange() {}
+  handleAuthorFirstNameInputChange(event) {
+    this.setState((prevState) => ({
+      author: {
+        ...prevState.author,
+        firstName: event.target.value,
+      },
+    }));
+  }
 
-  handleAuthorLastNameInputChange() {}
+  handleAuthorLastNameInputChange(event) {
+    this.setState((prevState) => ({
+      author: {
+        ...prevState.author,
+        lastName: event.target.value,
+      },
+    }));
+  }
 
-  handleAuthorEmailInputChange() {}
+  handleAuthorEmailInputChange(event) {
+    this.setState((prevState) => ({
+      author: {
+        ...prevState.author,
+        email: event.target.value,
+      },
+    }));
+  }
 
   render() {
     // const {
@@ -89,11 +141,46 @@ class NewProductForm extends Component {
         </div>
         <div className="col col-10">
           <form onSubmit={this.handleSubmit}>
-            {/* <Input
+            <Input
               type="text"
               label="Product title"
-              ...
-            /> */}
+              handleChange={this.handleTitleInputChange}
+            />
+            <Input
+              type="number"
+              label="Product price"
+              handleChange={this.handlePriceInputChange}
+            />
+            <Input
+              type="text"
+              label="Product image"
+              handleChange={this.handleImgInputChange}
+            />
+            <Input
+              type="text"
+              label="Short Description"
+              handleChange={this.handleShortDescriptionInputChange}
+            />
+            <Input
+              type="text"
+              label="Long Description"
+              handleChange={this.handleLongDescriptionInputChange}
+            />
+            <Input
+              type="text"
+              label="Author Name"
+              handleChange={this.handleAuthorFirstNameInputChange}
+            />
+            <Input
+              type="text"
+              label="Author Lastname"
+              handleChange={this.handleAuthorLastNameInputChange}
+            />
+            <Input
+              type="text"
+              label="Author Email"
+              handleChange={this.handleAuthorEmailInputChange}
+            />
 
             <Button submitButton block>
               Submit
