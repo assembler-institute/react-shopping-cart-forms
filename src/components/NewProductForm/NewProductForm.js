@@ -1,67 +1,71 @@
 import React, { Component } from "react";
-// import { v4 as uuid } from "uuid";
+import { v4 as uuid } from "uuid";
 
-// import Input from "../Input";
+import Input from "../Input";
 import Button from "../Button";
 
-// function addProductDetails(product) {
-//   return {
-//     id: uuid(),
-//     ...product,
-//     quantity: 0,
-//     isFavorite: false,
-//     createdAt: new Date().toISOString(),
-//     updatedAt: new Date().toISOString(),
-//     votes: {
-//       upVotes: {
-//         upperLimit: 10,
-//         currentValue: 0,
-//       },
-//       downVotes: {
-//         lowerLimit: 10,
-//         currentValue: 0,
-//       },
-//     },
-//     author: {
-//       id: uuid(),
-//       ...product.author,
-//     },
-//   };
-// }
+function addProductDetails(product) {
+  return {
+    id: uuid(),
+    ...product,
+    quantity: 0,
+    isFavorite: false,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    votes: {
+      upVotes: {
+        upperLimit: 10,
+        currentValue: 0,
+      },
+      downVotes: {
+        lowerLimit: 10,
+        currentValue: 0,
+      },
+    },
+    author: {
+      id: uuid(),
+      ...product.author,
+    },
+  };
+}
 
 class NewProductForm extends Component {
-  //     title: "",
-  //     price: 0,
-  //     img: "",
-  //     shortDescription: "",
-  //     longDescription: "",
-  //     unitsInStock: 0,
-  //     author: {
-  //       firstName: "",
-  //       lastName: "",
-  //       email: "",
-  //     },
-  //     errors: {},
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: "",
+      price: 0,
+      img: "",
+      shortDescription: "",
+      longDescription: "",
+      unitsInStock: 0,
+      author: {
+        firstName: "",
+        lastName: "",
+        email: "",
+      },
+      errors: {},
+    };
+  }
+  handleSubmit() {}
 
-  // handleSubmit() {}
+  handleTitleInputChange() {}
 
-  // handleTitleInputChange() {}
+  handlePriceInputChange() {}
 
-  // handlePriceInputChange() {}
+  handleImgInputChange() {}
 
-  // handleImgInputChange() {}
+  handleShortDescriptionInputChange() {}
 
-  // handleShortDescriptionInputChange() {}
+  handleLongDescriptionInputChange() {}
 
-  // handleLongDescriptionInputChange() {}
+  handleUnitsInStockInputChange() {}
 
-  // handleUnitsInStockInputChange() {}
+  handleAuthorFirstNameInputChange() {}
 
-  // handleAuthorFirstNameInputChange() {}
+  handleAuthorLastNameInputChange() {}
 
-  // handleAuthorLastNameInputChange() {}
-
-  // handleAuthorEmailInputChange() {}
+  handleAuthorEmailInputChange() {}
 
   render() {
     // const {
