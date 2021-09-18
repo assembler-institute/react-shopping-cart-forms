@@ -5,7 +5,7 @@ import Main from "../../components/Main";
 import Footer from "../../components/Footer";
 import ProductsListing from "../../components/ProductsListing";
 import Cart from "../../components/Cart";
-import NewProductForm from "../../components/NewProductForm";
+import NewProductForm from "../../components/NewProductForm/NewProductForm";
 
 function Home({
   products,
