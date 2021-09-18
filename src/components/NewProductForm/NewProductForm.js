@@ -66,7 +66,12 @@ class NewProductForm extends Component {
       this,
     );
   }
-  handleSubmit() {}
+  handleSubmit() {
+    const { productData } = this.state;
+    const { saveNewProduct } = this.props;
+    const newProduct = addProductDetails(productData);
+    saveNewProduct(newProduct);
+  }
 
   handleTitleInputChange(event) {
     this.setState({ title: event.target.value });
