@@ -66,8 +66,10 @@ class NewProductForm extends Component {
       this,
     );
   }
-  handleSubmit() {
-    const { productData } = this.state;
+
+  handleSubmit(event) {
+    event.preventDefault();
+    const { errors: _errors, ...productData } = this.state;
     const { saveNewProduct } = this.props;
     const newProduct = addProductDetails(productData);
     saveNewProduct(newProduct);
@@ -125,9 +127,16 @@ class NewProductForm extends Component {
   }
 
   render() {
-    // const {
-    // ...
-    // } = this.state;
+    const {
+      title,
+      price,
+      img,
+      shortDescription,
+      longDescription,
+      unitsInStock,
+      author,
+      errors,
+    } = this.state;
 
     const { toggleNewProductForm } = this.props;
 
@@ -150,41 +159,73 @@ class NewProductForm extends Component {
               type="text"
               label="Product title"
               handleChange={this.handleTitleInputChange}
+              errorMessage={errors.title}
+              value={title}
+              id="title"
             />
             <Input
               type="number"
               label="Product price"
               handleChange={this.handlePriceInputChange}
+              errorMessage={errors.price}
+              value={price}
+              id="price"
             />
             <Input
               type="text"
               label="Product image"
               handleChange={this.handleImgInputChange}
+              errorMessage={errors.img}
+              value={img}
+              id="img"
             />
             <Input
               type="text"
               label="Short Description"
               handleChange={this.handleShortDescriptionInputChange}
+              errorMessage={errors.shortDescription}
+              value={shortDescription}
+              id="shortDescription"
             />
             <Input
               type="text"
               label="Long Description"
               handleChange={this.handleLongDescriptionInputChange}
+              errorMessage={errors.longDescription}
+              value={longDescription}
+              id="longDescription"
+            />
+            <Input
+              type="text"
+              label="Units in Stock"
+              handleChange={this.handleUnitsInStockInputChange}
+              errorMessage={errors.unitsInStock}
+              value={unitsInStock}
+              id="unitsInStock"
             />
             <Input
               type="text"
               label="Author Name"
               handleChange={this.handleAuthorFirstNameInputChange}
+              errorMessage={errors.authorFirstName}
+              value={author.firstName}
+              id="authorFirstName"
             />
             <Input
               type="text"
               label="Author Lastname"
               handleChange={this.handleAuthorLastNameInputChange}
+              errorMessage={errors.authorLastName}
+              value={author.lastName}
+              id="authorLastName"
             />
             <Input
               type="text"
               label="Author Email"
               handleChange={this.handleAuthorEmailInputChange}
+              errorMessage={errors.authorEmail}
+              value={author.email}
+              id="authorEmail"
             />
 
             <Button submitButton block>
